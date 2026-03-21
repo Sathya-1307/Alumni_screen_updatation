@@ -8,10 +8,22 @@ import TopicApprovalForm from '../components/webinar/TopicApprovalForm';
 import WebinarCircular from '../components/webinar/WebinarCircular';
 import WebinarCertificate from '../components/webinar/WebinarCertificate';
 import Adminpage from '../components/webinar/Adminpage';
+
+// Placement imports - matching your App.js exactly
+import PlacementAdminDashboard from '../components/placement/AdminDashboard';
+import AssignedCompanies from '../components/placement/AssignedCompanies';
+import CompanyRegistrationForm from '../components/placement/CompanyRegistrationForm';
+import Companies from '../components/placement/companies';
+import InterviewResults from '../components/placement/InterviewResults';
+import InterviewResultsView from '../components/placement/InterviewResultsView';
+import PlacementDataRequestForm from '../components/placement/PlacementDataRequestForm';
+import PlacementFeedbackForm from '../components/placement/PlacementFeedbackForm';
+import RequesterFeedbackForm from '../components/placement/RequesterFeedbackForm';
+import AlumniFeedbackDisplay from '../components/placement/AlumniFeedbackDisplay';
+import AlumniJobRequestsDisplay from '../components/placement/AlumniJobRequestsDisplay';
 import PlacementDashboard from '../components/placement/PlacementDashboard';
 
 // Mentorship imports - adjust paths based on your structure
-// Mentorship imports
 import MenteeRegistration from '../components/mentorship/MenteeRegistration';
 import MentorRegistration from '../components/mentorship/MentorRegistration';
 import MenteeMentorAssignment from '../components/mentorship/Mentee-Mentor';
@@ -23,8 +35,6 @@ import ScheduledDashboard from '../components/mentorship/ScheduledDashboard';
 import LoginPage1 from '../components/mentorship/LoginPage';
 import MentorshipAdminDashboard from '../components/mentorship/AdminDashboard';
 import MentorshipDashboard from '../components/mentorship/MentorshipDashboard';
-
-// Add other webinar components as needed
 
 // Name-to-ID mapping for readable URLs (kebab-case → numeric ID)
 export const SCREEN_NAMES = {
@@ -42,6 +52,17 @@ export const SCREEN_NAMES = {
 
   // Placement screens
   'placement-dashboard': 24,
+  'placement-admin-dashboard': 30,
+  'assigned-companies': 31,
+  'placement-feedback-form': 32,
+  'requester-feedback-form': 33,
+  'alumni-feedback-display': 34,
+  'alumni-job-requests-display': 35,
+  'company-registration': 36,
+  'companies': 37,
+  'interview-results': 38,
+  'interview-results-view': 39,
+  'placement-data-request': 40,
   
   // Mentorship screens
   'mentorship-dashboard': 13,
@@ -63,11 +84,31 @@ export const getScreenIdByName = (screenName) => {
   return SCREEN_NAMES[normalized] || null;
 };
 
+export const getScreenPath = (screenNameOrId) => {
+  if (screenNameOrId === null || screenNameOrId === undefined || screenNameOrId === '') {
+    return null;
+  }
+
+  if (typeof screenNameOrId === 'number') {
+    return `/${screenNameOrId}`;
+  }
+
+  const trimmedValue = String(screenNameOrId).trim();
+  if (!trimmedValue) return null;
+
+  if (/^\d+$/.test(trimmedValue)) {
+    return `/${trimmedValue}`;
+  }
+
+  const screenId = getScreenIdByName(trimmedValue);
+  return screenId ? `/${screenId}` : trimmedValue;
+};
+
 // RoleId to screen name mapping for admin navigation
 export const ROLE_SCREEN_MAP = {
   2: 'student-request-form', // Student Coordinator
   3: 'webinar-dashboard', // Webinar Coordinator
-  9: 'placement-dashboard', // Placement Coordinator (handled elsewhere if not in SCREEN_NAMES)
+  9: 'placement-dashboard', // Placement Coordinator
   14: 'dashboard', // Mentorship Coordinator (general dashboard)
 };
 
@@ -76,7 +117,7 @@ export const getScreenNameByRoleId = (roleId) => {
 };
 
 export const SCREEN_COMPONENTS = {
-  // Webinar screens - updated to use actual screenIds from DB table
+  // Webinar screens
   1: WebinarDashboard,    // Webinar Dashboard
   2: StudentRequestForm,  // Student Request Form  
   3: WebinarSpeakerAssignmentForm, // Speaker Assignment Form
@@ -87,7 +128,20 @@ export const SCREEN_COMPONENTS = {
   10: WebinarCircular,    // Webinar Circular
   11: WebinarCertificate, // Webinar Certificate
   12: Adminpage,          // Admin Page (Webinar)
-  24: PlacementDashboard, // Placement Dashboard
+  
+  // Placement screens - using exact component names from App.js
+  24: PlacementDashboard,           // Placement Dashboard
+  30: PlacementAdminDashboard,      // Placement Admin Dashboard
+  31: AssignedCompanies,            // Assigned Companies
+  32: PlacementFeedbackForm,        // Placement Feedback Form
+  33: RequesterFeedbackForm,        // Requester Feedback Form
+  34: AlumniFeedbackDisplay,        // Alumni Feedback Display
+  35: AlumniJobRequestsDisplay,     // Alumni Job Requests Display
+  36: CompanyRegistrationForm,      // Company Registration
+  37: Companies,                    // Companies List
+  38: InterviewResults,             // Interview Results
+  39: InterviewResultsView,         // Interview Results View
+  40: PlacementDataRequestForm,     // Placement Data Request
   
   // Mentorship screens
   13: MentorshipDashboard,
@@ -121,9 +175,20 @@ export const WEBINAR_SCREEN_IDS = {
   ADMIN: 12,
 };
 
-// Placement screen IDs constant
+// Placement screen IDs constant - matching your App.js component names
 export const PLACEMENT_SCREEN_IDS = {
   DASHBOARD: 24,
+  ADMIN_DASHBOARD: 30,
+  ASSIGNED_COMPANIES: 31,
+  PLACEMENT_FEEDBACK_FORM: 32,
+  REQUESTER_FEEDBACK_FORM: 33,
+  ALUMNI_FEEDBACK_DISPLAY: 34,
+  ALUMNI_JOB_REQUESTS_DISPLAY: 35,
+  COMPANY_REGISTRATION: 36,
+  COMPANIES: 37,
+  INTERVIEW_RESULTS: 38,
+  INTERVIEW_RESULTS_VIEW: 39,
+  PLACEMENT_DATA_REQUEST: 40,
 };
 
 // Mentorship screen IDs constant

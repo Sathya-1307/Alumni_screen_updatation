@@ -18,6 +18,7 @@ import WebinarSpeakerAssignmentForm from "./webinar/WebinarSpeakerAssignmentForm
 import WebinarStudentFeedbackForm from "./webinar/WebinarStudentFeedbackForm";
 import TopicApprovalForm from './webinar/TopicApprovalForm';
 import WebinarCircular from './webinar/WebinarCircular';
+import { getScreenPath } from '../utils/screenMap';
 
 // ADDED: Decryption function that matches other dashboards
 const decryptEmail = (encryptedEmail) => {
@@ -487,12 +488,13 @@ function DashboardShell() {
 
   // ADDED: Handle Placement navigation with email
   const handlePlacementClick = () => {
+    const placementPath = getScreenPath('placement-dashboard') || '/24';
     setShowDropdown(false);
     if (userEmail) {
       const encryptedEmail = encryptEmail(userEmail);
-      window.open(`http://localhost:5173/alumnimain/placement-dashboard?email=${encodeURIComponent(encryptedEmail)}`, '_blank');
+      window.open(`${window.location.origin}/alumnimain${placementPath}?email=${encodeURIComponent(encryptedEmail)}`, '_blank');
     } else {
-      window.open('http://localhost:5173/alumnimain/placement-dashboard', '_blank');
+      window.open(`${window.location.origin}/alumnimain${placementPath}`, '_blank');
     }
   };
 
@@ -1192,5 +1194,3 @@ function DashboardShell() {
     </div>
   );
 }
-
-// End of JSX file

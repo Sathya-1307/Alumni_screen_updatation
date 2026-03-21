@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import './Home.css';
+import { getScreenPath } from '../../utils/screenMap';
 
 // Import your logo images
 import AlumniLogo from '../../assets/Nec-alumni-association.jpeg';
@@ -671,13 +672,14 @@ const AlumniDashboard = () => {
             ]}
           />
         );
-      case 'placements':
+      case 'placements': {
+        const placementDashboardPath = getScreenPath('placement-dashboard') || '/24';
         return (
           <DashboardCard
             icon="💼"
             title="Placement Dashboard"
             description="View and manage placement data, company registrations, and alumni employment records."
-            onClick={() => navigateWithEmail('/placement-dashboard')}
+            onClick={() => navigateWithEmail(placementDashboardPath)}
             stats={[
               { value: placementStats.totalApplications, label: 'Total Applications' },
               { value: placementStats.selected, label: 'Selected' },
@@ -685,6 +687,7 @@ const AlumniDashboard = () => {
             ]}
           />
         );
+      }
       default:
         return null;
     }

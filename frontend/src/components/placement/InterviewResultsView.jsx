@@ -267,7 +267,6 @@ const InterviewResultsView = () => {
             <div style={{ 
               display: 'flex', 
               justifyContent: 'space-between', 
-              alignItems: 'center', 
               marginBottom: isMobile ? '1rem' : '1.5rem', 
               paddingBottom: isMobile ? '0.75rem' : '1rem', 
               borderBottom: '2px solid #f3f4f6',
@@ -282,7 +281,6 @@ const InterviewResultsView = () => {
               }}>
                 Alumni List ({filteredAlumni.length})
               </h2>
-             
             </div>
 
             {loading ? (

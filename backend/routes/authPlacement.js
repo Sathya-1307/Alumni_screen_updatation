@@ -143,6 +143,11 @@ const getColorForScreen = (screenName) => {
   return colorMap[screenName] || '#6b7280';
 };
 
+const getScreenPath = (screen) => {
+  if (!screen) return null;
+  return screen.screenId ? `/${screen.screenId}` : screen.route;
+};
+
 // ==========================================
 // MAIN PERMISSIONS ENDPOINT - WITH LABEL CHECK FOR ADMIN
 // ==========================================
@@ -224,7 +229,7 @@ router.get('/', async (req, res) => {
               title: screen.name,
               description: `Access ${screen.name}`,
               icon: getIconForScreen(screen.name),
-              path: screen.route,
+              path: getScreenPath(screen),
               color: getColorForScreen(screen.name),
               module: screen.module,
               roleName: roleNames.join(', '),
@@ -369,7 +374,7 @@ router.get('/', async (req, res) => {
           title: screen.name,
           description: `Access ${screen.name}`,
           icon: getIconForScreen(screen.name),
-          path: screen.route,
+          path: getScreenPath(screen),
           color: getColorForScreen(screen.name),
           module: screen.module,
           roleName: roleNames.join(', '),
