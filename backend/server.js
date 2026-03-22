@@ -8,7 +8,7 @@ const dotenv = require('dotenv');
 const app = express();
 const PORT = process.env.PORT || 5000;
 app.use(express.json());
-app.use(cors());
+//app.use(cors());
 //SSO ROUTES
 const webinarSSORoutes = require('./single-sign-on/routes/webinar');
 app.use('/api/webinar', webinarSSORoutes);
@@ -16,9 +16,6 @@ const placementSSORoutes = require('./single-sign-on/routes/placement');
 app.use('/api/placement', placementSSORoutes);
 const mentorshipSSORoutes = require('./single-sign-on/routes/mentorShip');
 app.use('/api/mentorship', mentorshipSSORoutes);
-
-
-
 
 
 // Import string-similarity
@@ -79,7 +76,7 @@ const adminRoutes = require('./routes/admin'); // Assuming your admin routes fil
 // Middleware 
 
 //Cors For Producion
-// app.use(cors({ origin: ["https://necalumni.nec.edu.in", "https://necalumni.nec.edu.in/alumnimain"], credentials: true }));
+app.use(cors({ origin: ["https://necalumni.nec.edu.in", "https://necalumni.nec.edu.in/alumnimain"], credentials: true }));
 app.use(express.json({ limit: "10mb" }));
 app.use(express.urlencoded({ extended: true, limit: "10mb" }));
 
